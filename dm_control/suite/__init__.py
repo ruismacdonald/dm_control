@@ -37,6 +37,7 @@ from dm_control.suite import pendulum
 from dm_control.suite import point_mass
 from dm_control.suite import quadruped
 from dm_control.suite import reacher
+from dm_control.suite import reacherloca
 from dm_control.suite import stacker
 from dm_control.suite import swimmer
 from dm_control.suite import walker
