@@ -73,10 +73,10 @@ class Physics(mujoco.Physics):
 
 
 class RandomziedReacherLoCA(base.Task):
-  """A ReacherLoCA `Task` to reach the targets."""
+  """A ReacherLoCA `Task` to reach the randomized targets."""
 
   def __init__(self, target_size, random=None, random_targets=True):
-    """Initialize an instance of `ReacherLoCA`.
+    """Initialize an instance of `RandomizedReacherLoCA`.
 
     Args:
       target_size: A `float`, tolerance to determine whether finger reached the
