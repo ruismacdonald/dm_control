@@ -34,24 +34,24 @@ _SMALL_TARGET = .015
 
 def get_model_and_assets():
   """Returns a tuple containing the model XML string and a dict of assets."""
-  return common.read_model('reacherloca.xml'), common.ASSETS
+  return common.read_model('randomizedreacherloca.xml'), common.ASSETS
 
 
 @SUITE.add('benchmarking', 'easy')
-def easy(time_limit=_DEFAULT_TIME_LIMIT, random=None, environment_kwargs=None):
+def easy(time_limit=_DEFAULT_TIME_LIMIT, random=None, random_targets=True, environment_kwargs=None):
   """Returns ReacherLoCA with sparse reward with 5e-2 tol."""
   physics = Physics.from_xml_string(*get_model_and_assets())
-  task = ReacherLoCA(target_size=_BIG_TARGET, random=random)
+  task = RandomziedReacherLoCA(target_size=_BIG_TARGET, random=random, random_targets=random_targets)
   environment_kwargs = environment_kwargs or {}
   return control.Environment(
       physics, task, time_limit=time_limit, **environment_kwargs)
 
 
-@SUITE.add('benchmarking')
-def hard(time_limit=_DEFAULT_TIME_LIMIT, random=None, environment_kwargs=None):
+@SUITE.add('benchmarking', 'hard')
+def hard(time_limit=_DEFAULT_TIME_LIMIT, random=None, random_targets=True, environment_kwargs=None):
   """Returns ReacherLoCA with sparse reward with 1e-2 tol."""
   physics = Physics.from_xml_string(*get_model_and_assets())
-  task = ReacherLoCA(target_size=_SMALL_TARGET, random=random)
+  task = RandomizedReacherLoCA(target_size=_SMALL_TARGET, random=random, random_targets=random_targets)
   environment_kwargs = environment_kwargs or {}
   return control.Environment(
       physics, task, time_limit=time_limit, **environment_kwargs)
@@ -72,7 +72,7 @@ class Physics(mujoco.Physics):
     return (np.linalg.norm(finger_to_target_1), np.linalg.norm(finger_to_target_2))
 
 
-class RandomziedReacherLoCA(base.Task):
+class RandomizedReacherLoCA(base.Task):
   """A ReacherLoCA `Task` to reach the randomized targets."""
 
   def __init__(self, target_size, random=None, random_targets=True):
