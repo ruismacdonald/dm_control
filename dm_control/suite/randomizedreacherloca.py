@@ -41,7 +41,7 @@ def get_model_and_assets():
 def easy(time_limit=_DEFAULT_TIME_LIMIT, random=None, random_targets=True, environment_kwargs=None):
   """Returns ReacherLoCA with sparse reward with 5e-2 tol."""
   physics = Physics.from_xml_string(*get_model_and_assets())
-  task = RandomziedReacherLoCA(target_size=_BIG_TARGET, random=random, random_targets=random_targets)
+  task = RandomizedReacherLoCA(target_size=_BIG_TARGET, random=random, random_targets=random_targets)
   environment_kwargs = environment_kwargs or {}
   return control.Environment(
       physics, task, time_limit=time_limit, **environment_kwargs)
